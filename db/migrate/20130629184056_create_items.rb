@@ -5,7 +5,11 @@ class CreateItems < ActiveRecord::Migration
       t.string  :name
       t.boolean :real
       t.float   :weight
+      t.string  :description
       t.timestamps #:created_at, :updated_at
     end
+    add_index :items, :name
+    add_index :items, :price
   end
 end
+ 
