@@ -35,7 +35,7 @@ class ItemsController < ApplicationController
   # /items/new GET
   # to create
   def new 
-    
+    @item = Item.new
   end
 
   # /items/1/edit GET
@@ -46,7 +46,13 @@ class ItemsController < ApplicationController
 
   # /items POST
   def create
-    render text: "item created"
+    # render text: params.inspect
+  	@item = Item.create(params[:item])
+  	if @item.errors.empty?
+  	  redirect_to item_path(@item)
+  	else
+  	  render "new"
+  	end
   end
 
   # /items/1 PUT
