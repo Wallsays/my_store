@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
     end
 
     def check_if_admin
-      # render_403 unless params[:admin] 
+      # trouble there !!! need to modify protection system to allowing create/update actions
+      render_403 unless params[:admin] 
     end 
 
 end
