@@ -1,31 +1,30 @@
 class ItemsController < ApplicationController
   
+  before_filter :find_item,      only: [:show, :edit, :update, :destroy]
+  before_filter :check_if_admin, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     @items = Item.all	
   end
 
   # /items/1 GET
   def show
-    unless @item = Item.where(id: params[:id]).first
+    unless @item
       render text: "Page not found", status: 404
     end
   end
 
   # /items/new GET
-  # to create
   def new 
     @item = Item.new
   end
 
   # /items/1/edit GET
-  # to update
   def edit
-    @item = Item.find(params[:id])
   end
 
   # /items POST
   def create
-    # render text: params.inspect
   	@item = Item.create(params[:item])
   	if @item.errors.empty?
   	  redirect_to item_path(@item) # url: items/:id; one more "query"
@@ -36,7 +35,6 @@ class ItemsController < ApplicationController
 
   # /items/1 PUT
   def update
-    @item = Item.find(params[:id])
     @item.update_attributes(params[:item])
   	if @item.errors.empty?
   	  redirect_to item_path(@item) 
@@ -47,9 +45,20 @@ class ItemsController < ApplicationController
 
   # /items/1 DELETE
   def destroy
-    @item = Item.find(params[:id])
     @item.destroy
     redirect_to action: "index"
   end
   
+  private
+
+    def find_item
+      @item = Item.find(params[:id])
+    end
+
+    def check_if_admin
+      # in real app next line
+      # render text: "Access denied", status: 403 unless current_user.admin == true
+      render text: "Access denied", status: 403 unless params[:admin]
+    end 
+
 end
