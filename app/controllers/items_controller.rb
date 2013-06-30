@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   
   def index
     @items = Item.all	
-    render text: @items.map { |i| "#{i.name}: #{i.price}"}.join("<br/>") 
+    # render text: @items.map { |i| "#{i.name}: #{i.price}"}.join("<br/>") 
   end
 
 #   def create
@@ -13,14 +13,23 @@ class ItemsController < ApplicationController
 # 
 #   	# @item = Item.create(name: params[:name], description: params[:description], price: params[:price], real: params[:real], weight: params[:weight])
 #   	@item = Item.create(params[:item])
-
+# 
 #   	# last checks if all validations is OK
 #   	render text: "#{@item.id}: #{@item.name} (#{!@item.new_record?})"
 #   end
   
   # /items/1 GET
   def show
-    
+    # Item.where(id: params[:id]).each { |i| } # if would be many nodes but not in :id case
+    # if @item = Item.where(id: params[:id]).first
+    #   # smart rails, knows that show action -> show template
+    #   # render "items/show"
+    # else
+    #   render text: "Page not found", status: 404
+    # end
+    unless @item = Item.where(id: params[:id]).first
+      render text: "Page not found", status: 404
+    end
   end
 
   # /items/new GET
