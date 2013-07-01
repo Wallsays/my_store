@@ -6,11 +6,13 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem "thin"
+gem 'thin'
+gem 'rack'
+# gem 'rmagick'
+gem 'carrierwave' # fot images or another files to model
+gem 'haml-rails'
 
-# gem "paperclip"   # fot images to items
-# alternate to prev gem
-gem "carrierwave" # fot images or another files to model
+gem 'devise' # for authentication
 
 # Gems used only for assets and not required
 # in production environments by default.
