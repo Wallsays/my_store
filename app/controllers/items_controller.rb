@@ -10,7 +10,8 @@ class ItemsController < ApplicationController
     # @items = Item.where('votes_count = 2 OR price = 2500')
     # @items = Item.where('votes_count >= 1')
     # @items = Item.where('price >= #{params[:price_from]}') # there can be sql injection
-    @items = Item.where('price >= ?', params[:price_from]) # rails checks arg2
+    # rails checks arg2
+    @items = Item.where('price >= ?', params[:price_from]).order("votes_count DESC", "price").limit(50)
   end
 
   def expensive
