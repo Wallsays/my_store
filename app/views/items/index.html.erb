@@ -3,7 +3,7 @@
 <% if @items.empty? %>
   <b>No items in store</b>
 <% else %>
-<table>
+<table class="items">
   <tr>
   	<th>item id</th>
   	<th>Name</th>
@@ -17,7 +17,10 @@
  
     <tr>
   	  <td><%= i.id %></td>
-  	  <td><%= link_to i.name, item_path(i) %></td>
+  	  <td>
+        <%= image_tag i.image.file, width: '50px', height: '50px' if i.image%>
+        <%= link_to i.name, item_path(i) %>
+      </td>
       <td><%= i.price %> руб.</td>
   	  <td><%= i.created_at %></td>
   	  <!-- next line needs to work only w/ gem 'jquery-rails' -->
