@@ -14,6 +14,15 @@ class Item < ActiveRecord::Base
   
   after_save :save_image
 
+  # mount_uploader :file, ImageUploader
+  
+  # def crop_image!(c)
+  #   c.each { |k,v| c[k] = v.to_i}
+  #   p c
+  #   @image_crop_data = c
+  #   image.recreate_versions!
+  # end
+
   def image=(i)
   	if !image || !new_record?
   	  @image = Image.create(i.merge({imageable: self}))

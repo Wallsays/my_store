@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   
-  before_filter :find_item,      only: [:show, :edit, :update, :destroy, :upvote]
+  before_filter :find_item,      only: [:show, :edit, :update, :destroy, :upvote] # , :crop_image
   before_filter :check_if_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
@@ -38,6 +38,7 @@ class ItemsController < ApplicationController
   	@item = Item.create(params[:item])
   	if @item.errors.empty?
   	  redirect_to item_path(@item) # url: items/:id; one more "query"
+      # redirect_to crop_image_item_path(@item)
   	else
   	  render "new" # not "miss variables"
   	end
@@ -47,8 +48,11 @@ class ItemsController < ApplicationController
   def update
     @item.update_attributes(params[:item])
   	if @item.errors.empty?
-  	  redirect_to item_path(@item) 
-  	else
+      flash[:success] = "Item successfully updated!"
+      redirect_to item_path(@item) 
+      # redirect_to crop_image_item_path(@item)
+    else
+      flash.now[:error] = "You made mistakes in ypur form! Please correct them."
   	  render "edit" 
   	end
   end
