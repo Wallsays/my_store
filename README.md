@@ -1,3 +1,4 @@
-my_store
+Store App
 ========
+
 Store application on RubyOnRails

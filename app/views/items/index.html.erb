@@ -8,6 +8,7 @@
   	<th>item id</th>
   	<th>Name</th>
   	<th>Price</th>
+    <th>created_at</th>
   	<th></th>
   	<th></th>
   </tr>
@@ -17,7 +18,8 @@
     <tr>
   	  <td><%= i.id %></td>
   	  <td><%= link_to i.name, item_path(i) %></td>
-  	  <td><%= i.price %> руб.</td>
+      <td><%= i.price %> руб.</td>
+  	  <td><%= i.created_at %></td>
   	  <!-- next line needs to work only w/ gem 'jquery-rails' -->
   	  <td><%= link_to "Удалить", i, method: :delete, data: { confirm: "Точно удалить?"} %></td>
   	  <td>Рейтинг: <%= i.votes_count %>, <%= link_to "+", upvote_item_path(i) %></td>

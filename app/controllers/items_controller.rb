@@ -4,14 +4,11 @@ class ItemsController < ApplicationController
   before_filter :check_if_admin, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    # @items = Item.all 
-    # @items = Item.where(price: 1500)
-    # @items = Item.where(votes_count: 2, price: 2000)
-    # @items = Item.where('votes_count = 2 OR price = 2500')
-    # @items = Item.where('votes_count >= 1')
-    # @items = Item.where('price >= #{params[:price_from]}') # there can be sql injection
-    # rails checks arg2
-    @items = Item.where('price >= ?', params[:price_from]).order("votes_count DESC", "price").limit(50)
+    @items = Item # in var will be obj ActiveRecordRelation for different queries
+    @items = @items.where('price >= ?', params[:price_from])       if params[:price_from]
+    @items = @items.where('created_at >= ?', 1.day.ago)            if params[:today]
+    @items = @items.where('votes_count >= ?', params[:votes_from]) if params[:votes_from]
+    @items = @items.order("votes_count DESC", "price").limit(50)
   end
 
   def expensive
