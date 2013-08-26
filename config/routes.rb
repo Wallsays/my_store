@@ -11,7 +11,7 @@ MyStore::Application.routes.draw do
   	get :expensive, on: :collection
   end
   
-  match "admin/users_count" => "admin#users_count"
+  get "admin/users_count" => "admin#users_count"
 
   # match ':controller(/:action(/:id))(.:format)'
 end
