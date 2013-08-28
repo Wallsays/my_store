@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
 
-
+  attr_reader :image_crop_data
   validates :price, numericality: { greater_than: 0, allowed_nil: true}
   validates :name, presence: true
 
@@ -22,14 +22,14 @@ class Item < ActiveRecord::Base
   #   image.recreate_versions!
   # end
 
-  def image=(i)
-  	if !image || !new_record?
-  	  @image = Image.create(i.merge({imageable: self}))
-  	end
-  end
+  # def image=(i)
+  # 	if !image || !new_record?
+  # 	  @image = Image.create(i.merge({imageable: self}))
+  # 	end
+  # end
 
-  def save_image
+  # def save_image
 
-  end
+  # end
 
 end 
